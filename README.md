@@ -4,7 +4,7 @@
 
 We would like you to create an application that will display display list of news fetched from The Guardian. You should use their API, which can be found here: [https://open-platform.theguardian.com/](https://open-platform.theguardian.com/)
 
-Goal of this task is to check you JavaScript knowledge so please don't use any additional libraries, you can use `fetch` for http requests.
+Goal of this task is to check your JavaScript knowledge so please don't use any additional libraries, you can use `fetch` for http requests.
 
 We have provided sample html + css styling, so you can focus on writing JS code.
 
@@ -21,7 +21,7 @@ We have provided sample html + css styling, so you can focus on writing JS code.
   - Link to full article (open in new window)
   - "Read Later" button
 - Clicking "Read later" button should add selected news to the "Read later" section on the right. Those elements should be stored somewhere and displayed even after refresh.
-- Each element from "read "later" can be removed by clicking "delete" button
+- Each element from "read later" can be removed by clicking "delete" button
 - (Bonus) If you will find time, please briefly describe your approach to solving this task.
 
 ## Tools used
