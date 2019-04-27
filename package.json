@@ -2,6 +2,11 @@
   "name": "recruitment_boilerplate",
   "version": "1.0.0",
   "description": "Startup House recruitment boilerplate",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:startupdevhouse/js_recruitment_task.git"
+  },
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "parcel src/index.html"
   },
