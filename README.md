@@ -10,7 +10,7 @@ We have provided sample html + css styling, so you can focus on writing JS code.
 
 ## Requirements
 
-- Display list of news from last month
+- Display list of news from last 30 days
 - Add pagination: 10 items per page
 - Add news filtering based on section selection from dropdown. You can restrict it only to: `sport`, `books`, `business`, `culture`
 - Add search functionality for filtering news content based on provided phrase
