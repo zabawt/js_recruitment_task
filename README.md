@@ -22,6 +22,7 @@ We have provided sample html + css styling, so you can focus on writing JS code.
   - "Read Later" button
 - Clicking "Read later" button should add selected news to the "Read later" section on the right. Those elements should be stored somewhere and displayed even after refresh.
 - Each element from "read later" can be removed by clicking "delete" button
+- (Bonus) It would be beneficial if you would write some kind of tests, either unit or integration
 - (Bonus) If you will find time, please briefly describe your approach to solving this task.
 
 ## Tools used
