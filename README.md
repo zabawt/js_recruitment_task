@@ -4,9 +4,12 @@
 
 We would like you to create an application that will display list of news fetched from The Guardian. You should use their API, which can be found here: [https://open-platform.theguardian.com/](https://open-platform.theguardian.com/)
 
-Goal of this task is to check your JavaScript knowledge so please don't use any additional libraries, you can use `fetch` for http requests.
+Goal of this task is to check your JavaScript knowledge so please don't use any additional libraries. There are some exceptions, though. You can use `fetch` for http requests and if you are going to write some tests, you can of course use tools like `testing-library` or `jest`.
 
-We have provided sample html + css styling, so you can focus on writing JS code.
+**Important**
+* Please treat this tasks as something that would be shown to our customer, so focus on quality and best practices (and we don't mean only from the code point of view :) ).
+* Also feel free to update or customize starter config. For example you can change `prettier` or `eslint` config or add something else that you are used to use on daily basis.
+* We have provided sample html + css styling, so you can focus on writing JS code but you can change default layout if you want.
 
 ## Requirements
 
