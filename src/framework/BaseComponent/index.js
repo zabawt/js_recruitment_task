@@ -5,7 +5,7 @@ export default class BaseComponent {
   constructor(props) {
     this._props = props;
     this._renderer = componentRenderer;
-    this._html = `<div>${props}</div>`;
+    this._html = `<div onCLick="">${props}</div>`;
 
     const tmpComponent = this._html.toString();
 
@@ -19,6 +19,13 @@ export default class BaseComponent {
   }
 
   render() {
-    return this._renderer(this._html);
+    const element = this._renderer(this._html);
+    if (this._props['onClick']) {
+      const handler = element.querySelector('[onclick]');
+      handler.removeAttribute('onclick');
+      handler.addEventListener('click', this._props.onClick);
+    }
+
+    return element;
   }
 }

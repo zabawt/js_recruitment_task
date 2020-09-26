@@ -14,8 +14,8 @@ export default class Article extends BaseComponent {
                     </ul>
                   </section>
                   <section class="newsActions">
-                    <a href="${this._props.link}" class="button">Full article</a>
-                    <button class="button button-outline">Read Later</button>
+                    <a href="${this._props.link}" class="button" target="_blank">Full article</a>
+                    <button class="button button-outline" onClick>Read Later</button>
                   </section>
                 </article></li>`;
   }

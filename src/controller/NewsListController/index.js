@@ -2,24 +2,28 @@ import MainController from './../MainController';
 import Article from './../../components/Article';
 
 export default class NewsListController extends MainController {
-  addToReadLaterList() {
-    if (this._observer) {
-      console.error(this._observer);
-    }
+  handleReadLater(event, id) {
+    event.preventDefault();
+    this._observer.setState({
+      ...this._observer.getState(),
+      readLater: [...this._observer.getState().readLater, id],
+    });
   }
 
   renderNewsList(articles) {
     const articleList = articles.map(
-      ({ webPublicationDate, webTitle, webUrl, sectionName }) => {
+      ({ id, webPublicationDate, webTitle, webUrl, sectionName }) => {
         return new Article({
+          id,
           title: webTitle,
           link: webUrl,
           date: new Date(webPublicationDate).toLocaleDateString(),
           section: sectionName,
+          onClick: (event) => this.handleReadLater(event, id),
         }).render();
       }
     );
-    console.error(articleList);
+
     this._renderer(articleList);
   }
 

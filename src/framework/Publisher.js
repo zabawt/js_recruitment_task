@@ -18,7 +18,6 @@ export default class Publisher {
   }
 
   notify() {
-    console.error('NOTIFY OF STATE UPDATE');
     this._observers.forEach((observer) => observer.update(this));
   }
 }
