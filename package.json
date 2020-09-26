@@ -8,7 +8,7 @@
   },
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "parcel serve src/index.html"
+    "dev": "parcel serve src/index.html --port 8080"
   },
   "devDependencies": {
     "autoprefixer": "^9.5.1",
