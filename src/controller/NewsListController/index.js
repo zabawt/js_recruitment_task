@@ -1,6 +1,5 @@
 import MainController from './../MainController';
 import Article from './../../components/Article';
-import ArticleList from './../../components/ArticleList';
 
 export default class NewsListController extends MainController {
   addToReadLaterList() {
@@ -20,7 +19,8 @@ export default class NewsListController extends MainController {
         }).render();
       }
     );
-    this._renderer(new ArticleList({ articles: articleList }).render());
+    console.error(articleList);
+    this._renderer(articleList);
   }
 
   update(observer) {

@@ -1,23 +1,24 @@
 import InvalidArgument from './Exceptions/InvalidArgument.js';
 import MissingArgument from './Exceptions/MissingArgument.js';
-
+import componentRenderer from './../componentRenderer';
 export default class BaseComponent {
-  constructor(props, validate = true) {
+  constructor(props) {
     this._props = props;
-    if (validate) {
-      const tmpComponent = this.render(props);
+    this._renderer = componentRenderer;
+    this._html = `<div>${props}</div>`;
 
-      if (tmpComponent.match(/undefined/g) || tmpComponent.match(/null/g)) {
-        throw new MissingArgument();
-      }
+    const tmpComponent = this._html.toString();
 
-      if (typeof props !== 'object') {
-        throw new InvalidArgument();
-      }
+    if (tmpComponent.match(/undefined/g) || tmpComponent.match(/null/g)) {
+      throw new MissingArgument();
+    }
+
+    if (typeof props !== 'object') {
+      throw new InvalidArgument();
     }
   }
 
   render() {
-    return `<div>${JSON.stringify(this._props)}</div>`;
+    return this._renderer(this._html);
   }
 }

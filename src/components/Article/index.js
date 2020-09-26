@@ -1,12 +1,9 @@
 import BaseComponent from '../../framework/BaseComponent';
 
 export default class Article extends BaseComponent {
-  handleOnClick(event) {
-    event.preventDefault();
-  }
-
-  render() {
-    return `<article class="news">
+  constructor(props) {
+    super(props);
+    this._html = `<li><article class="news">
                   <header>
                     <h3>${this._props.title}</h3>
                   </header>
@@ -20,6 +17,6 @@ export default class Article extends BaseComponent {
                     <a href="${this._props.link}" class="button">Full article</a>
                     <button class="button button-outline">Read Later</button>
                   </section>
-                </article>`;
+                </article></li>`;
   }
 }
