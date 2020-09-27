@@ -7,8 +7,19 @@ export default class ReadLaterController extends MainController {
     //I use arrow to have access to lexical 'this'
     return (event) => {
       event.preventDefault();
-      console.error(id);
+      this.removeArticle(id);
     };
+  }
+
+  removeArticle(readLaterId) {
+    // I was wondering how to optimize the search bearing in mind that modern js engines are pretty well optimized,
+    // based on this article https://medium.com/javascript-in-plain-english/how-to-remove-a-specific-item-from-an-array-in-javascript-a49b108404c
+    //I decided to go with filter as it's only slightly slower than for loop and way more maintable and readable
+
+    const { readLater, ...rest } = this._globalStore.getState();
+    const updatedReadLaterList = readLater.filter((id) => readLaterId !== id);
+
+    this._globalStore.setState({ ...rest, readLater: updatedReadLaterList });
   }
 
   getArticleById(readLaterId) {
