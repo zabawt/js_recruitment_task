@@ -15,8 +15,8 @@ const articleClient = new ArticleClient(
 );
 
 const paginationContainer = document.getElementById("activePageSelect");
-const newsListContainer = document.getElementsByClassName("newsList")[0];
-const readLaterContainer = document.getElementsByClassName("readLaterList")[0];
+const newsListContainer = document.getElementById("news-list");
+const readLaterContainer = document.getElementById("read-later-list");
 const searchContainer = document.getElementById("newsContentSearch");
 
 const globalStore = new Store(initialState, "globalStore");

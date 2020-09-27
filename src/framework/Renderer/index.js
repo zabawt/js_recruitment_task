@@ -6,15 +6,8 @@ const Renderer = (container) => (component) => {
       container.innerHTML = "";
       component.forEach((component) => container.appendChild(component));
     } else {
-      if (
-        container.getAttribute("id") === component.getAttribute("id") &&
-        container.parentNode
-      ) {
-        const parent = container.parentNode;
-        parent.replaceChild(component, container);
-      } else {
-        container.appendChild(component);
-      }
+      container.innerHTML = "";
+      container.appendChild(component);
     }
   } else {
     throw new InvalidParameterType(container);

@@ -2,7 +2,7 @@
 import MainController from "./../MainController";
 import Search from "./../../components/Search";
 import eventTypes from "../../commons/enums/eventTypes";
-import { fromDateMinusDays } from "./../../commons/fromDate";
+
 export default class SearchController extends MainController {
   constructor(renderer, globalStore, apiClient) {
     super(renderer, globalStore, apiClient);
@@ -17,24 +17,30 @@ export default class SearchController extends MainController {
 
   handleSearch(event) {
     const { value } = event.currentTarget;
-    if (value) {
-      const {
-        pageSize,
-        selectedSection,
-        ...rest
-      } = this._globalStore.getState();
-      debugger;
-      this._apiClient
-        .addPAGEParam(1)
-        .addSECTIONParam(selectedSection)
-        .addQUERYParam(value)
-        .getArticles()
-        .then((data) => {
-          this._globalStore.setState({
-            ...rest,
-            articles: data.response.results,
-          });
+
+    const { selectedSection, ...rest } = this._globalStore.getState();
+
+    this._apiClient
+      .addPAGEParam(1)
+      .addSECTIONParam(selectedSection)
+      .addQUERYParam(value)
+      .getArticles()
+      .then((data) => {
+        const {
+          pages,
+          currentPage,
+          pageSize,
+          results: articles,
+        } = data.response;
+
+        this._globalStore.setState({
+          ...rest,
+          currentPage,
+          pageSize,
+          selectedSection,
+          pages,
+          articles,
         });
-    }
+      });
   }
 }

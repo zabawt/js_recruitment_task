@@ -47,4 +47,8 @@ export default class BaseComponent {
     }
     return element;
   }
+
+  serialize() {
+    return this.render().outerHTML;
+  }
 }

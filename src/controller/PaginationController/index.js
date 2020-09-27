@@ -8,23 +8,23 @@ export default class PaginationController extends MainController {
   }
 
   handlePageOnChange(event) {
-    const { value: currentPage } = event.currentTarget;
+    const { value: pageValue } = event.currentTarget;
     const { selectedSection, ...rest } = this._globalStore.getState();
 
     this._apiClient
-      .addPAGEParam(currentPage)
+      .addPAGEParam(pageValue)
       .addSECTIONParam(selectedSection)
       .getArticles()
       .then((data) => {
-        const { results: articles } = data.response;
+        const { results: articles, currentPage, pages } = data.response;
         this._globalStore.setState({
-          selectedSection,
           ...rest,
+          pages,
+          selectedSection,
           articles,
           currentPage,
         });
       });
-    debugger;
   }
 
   renderPageList() {
@@ -34,7 +34,7 @@ export default class PaginationController extends MainController {
       currentPage,
       [eventTypes.onChange]: this.handlePageOnChange.bind(this),
     }).render();
-    pagination.value = this._globalStore.getState().currentPage;
+    pagination.value = currentPage;
     this._renderer(pagination);
   }
 }
