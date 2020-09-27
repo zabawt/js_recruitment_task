@@ -12,7 +12,7 @@ class Store extends Publisher {
   }
 
   setState(newState) {
-    this._state = newState;
+    this._state = newState; //this should be deep copied to ensure we won't introduce side effects
     this.notify(this);
   }
 }

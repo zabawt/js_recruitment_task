@@ -1,4 +1,4 @@
-import InvalidContainerParameter from "./Exceptions/InvalidContainerParameter.js";
+import InvalidParameterType from "./Exceptions/InvalidParameterType.js";
 
 const Renderer = (container) => (component) => {
   if (container instanceof HTMLElement || component instanceof HTMLElement) {
@@ -9,7 +9,7 @@ const Renderer = (container) => (component) => {
       container.appendChild(component);
     }
   } else {
-    throw new InvalidContainerParameter(container);
+    throw new InvalidParameterType(container);
   }
 };
 
