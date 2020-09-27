@@ -1,40 +1,48 @@
 /* eslint-disable linebreak-style */
 import { fromDateMinusDays } from "./../../commons/fromDate";
+import qsParams from "./../../commons/enums/qsParams";
+
 export default class ArticleClient {
   constructor(apiKey, apiUrl) {
     this._apiKey = apiKey;
     this._apiUrl = apiUrl;
-  }
-
-  buildQs(page, pageSize, section, fromDate, q) {
-    const pageParams = {
-      "api-key": this._apiKey,
-      page,
-      pageSize,
-      section,
-      fromDate,
-      q,
+    //default params
+    this._qsParams = {
+      "api-key": apiKey,
+      [qsParams.PAGE]: 1,
+      [qsParams.PAGE_SIZE]: 10,
+      [qsParams.SECTION]: null,
+      [qsParams.QUERY]: null,
+      [qsParams.FROM_DATE]: fromDateMinusDays(30),
     };
 
-    Object.keys(pageParams).forEach(
-      (key) => pageParams[key] == null && delete pageParams[key]
+    //Check this out, dynamically created verbose params functions to easily operate on api
+    for (let param in qsParams) {
+      ArticleClient.prototype[`add${param}Param`] = function (value) {
+        return this.addParam(qsParams[param])(value);
+      };
+    }
+  }
+
+  addParam(paramName) {
+    return (paramValue) => {
+      this._qsParams[paramName] = paramValue;
+      return this;
+    };
+  }
+
+  buildQs() {
+    Object.keys(this._qsParams).forEach(
+      (key) => this._qsParams[key] == null && delete this._qsParams[key]
     );
 
     return `${this._apiUrl}/search?${new URLSearchParams(
-      pageParams
+      this._qsParams
     ).toString()}`;
   }
 
-  async getArticles(
-    page = 1,
-    pageSize = 10,
-    section = null,
-    fromDate = fromDateMinusDays(30),
-    q = null
-  ) {
-    const response = await fetch(
-      this.buildQs(page, pageSize, section, fromDate, q)
-    );
+  async getArticles() {
+    const response = await fetch(this.buildQs());
 
     if (response.ok) {
       return response.json();

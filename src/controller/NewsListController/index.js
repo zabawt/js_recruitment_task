@@ -3,6 +3,23 @@ import Article from "./../../components/Article";
 import NoResults from "./../../components/NoResults";
 export default class NewsListController extends MainController {
   //uber cool function currying to handle events
+
+  constructor(renderer, globalStore, apiClient) {
+    super(renderer, globalStore, apiClient);
+
+    this._apiClient.getArticles().then((data) => {
+      const { results, pages, pageSize, currentPage } = data.response;
+      const currentState = this._globalStore.getState();
+      this._globalStore.setState({
+        ...currentState,
+        articles: results,
+        currentPage,
+        pages,
+        pageSize,
+      });
+    });
+  }
+
   handleReadLater(id) {
     return (event) => {
       event.preventDefault();

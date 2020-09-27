@@ -8,21 +8,11 @@ import ReadLaterListController from "./controller/ReadLaterController";
 import PaginationController from "./controller/PaginationController";
 import SearchController from "./controller/SearchController";
 import MainApp from "./MainApp";
-
+import initialState from "./initialState";
 const articleClient = new ArticleClient(
   apiConfig["api-key"],
   apiConfig["api-url"]
 );
-
-const sectionNames = ["sport", "books", "business", "culture"];
-
-const initialState = {
-  sectionNames,
-  readLater: [],
-  articles: [],
-  currentPage: 1,
-  pages: 1,
-};
 
 const paginationContainer = document.getElementById("activePageSelect");
 const newsListContainer = document.getElementsByClassName("newsList")[0];
@@ -42,15 +32,3 @@ app
   )
   .registerController(PaginationController, paginationContainer, articleClient)
   .registerController(SearchController, searchContainer, articleClient);
-
-articleClient.getArticles().then((data) => {
-  const { results, pages, pageSize, currentPage } = data.response;
-  const currentState = globalStore.getState();
-  globalStore.setState({
-    ...currentState,
-    articles: results,
-    currentPage,
-    pages,
-    pageSize,
-  });
-});

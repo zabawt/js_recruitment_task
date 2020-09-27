@@ -18,10 +18,17 @@ export default class SearchController extends MainController {
   handleSearch(event) {
     const { value } = event.currentTarget;
     if (value) {
-      const { pageSize, ...rest } = this._globalStore.getState();
+      const {
+        pageSize,
+        selectedSection,
+        ...rest
+      } = this._globalStore.getState();
       debugger;
       this._apiClient
-        .getArticles(1, pageSize, null, fromDateMinusDays(30), value)
+        .addPAGEParam(1)
+        .addSECTIONParam(selectedSection)
+        .addQUERYParam(value)
+        .getArticles()
         .then((data) => {
           this._globalStore.setState({
             ...rest,
