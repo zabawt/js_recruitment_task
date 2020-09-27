@@ -6,19 +6,21 @@ export default class NewsListController extends MainController {
   handleReadLater(id) {
     return (event) => {
       event.preventDefault();
-      //prevent puttin double entries to read later list with use of set!
-      const readLaterUnique = Array.from(
-        new Set([...this._globalStore.getState().readLater, id])
-      );
+      const { webUrl, webTitle } = this.getArticleById(id);
+      let { readLater } = this._globalStore.getState();
 
-      // well I decided to make button disabled if item is already added to read later list, just for user experience purposes
-      // the issue here though is that I mixed presentation layer with data layer, I mean that our article model should be separeted from it's representation
-      // to handle that properly I will use a function that checks this isArticleDisabled
+      if (readLater.filter((item) => item.id === id).length === 0) {
+        readLater.push({ id, webUrl, webTitle });
 
-      this._globalStore.setState({
-        ...this._globalStore.getState(),
-        readLater: readLaterUnique,
-      });
+        // well I decided to make button disabled if item is already added to read later list, just for user experience purposes
+        // the issue here though is that I mixed presentation layer with data layer, I mean that our article model should be separeted from it's representation
+        // to handle that properly I will use a function that checks this isArticleDisabled
+
+        this._globalStore.setState({
+          ...this._globalStore.getState(),
+          readLater,
+        });
+      }
     };
   }
 
@@ -26,7 +28,7 @@ export default class NewsListController extends MainController {
     //we convert expresion to boolean with !! operator
     return !!this._globalStore
       .getState()
-      .readLater.filter((item) => item === articleId).length;
+      .readLater.filter(({ id }) => id === articleId).length;
   }
 
   getArticleById(articleId) {

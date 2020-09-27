@@ -30,11 +30,15 @@ const readLaterContainer = document.getElementsByClassName("readLaterList")[0];
 const globalStore = new Store(initialState, "globalStore");
 const app = new MainApp(Renderer, globalStore);
 
-/**register controllers! Probably this comment is pointless but that's the point */
+/**register controllers! This comment is pointless but that's the point */
 app
-  .registerController(NewsListController, newsListContainer)
-  .registerController(ReadLaterListController, readLaterContainer)
-  .registerController(PaginationController, paginationContainer);
+  .registerController(NewsListController, newsListContainer, articleClient)
+  .registerController(
+    ReadLaterListController,
+    readLaterContainer,
+    articleClient
+  )
+  .registerController(PaginationController, paginationContainer, articleClient);
 
 articleClient.getArticles().then((data) => {
   const { results, pages, pageSize, currentPage } = data.response;
