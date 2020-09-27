@@ -1,5 +1,5 @@
-import MainController from './../MainController';
-import Article from './../../components/Article';
+import MainController from "./../MainController";
+import Article from "./../../components/Article";
 
 export default class NewsListController extends MainController {
   handleReadLater(event, id) {

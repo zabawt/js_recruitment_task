@@ -1,7 +1,7 @@
-import Publisher from '../../framework/Publisher';
+import Publisher from "../../framework/Publisher";
 
 class Store extends Publisher {
-  constructor(initialState = {}, name = 'Store') {
+  constructor(initialState = {}, name = "Store") {
     super();
     this._name = name;
     this._state = initialState;

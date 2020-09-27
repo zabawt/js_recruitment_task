@@ -7,10 +7,6 @@ export default class Publisher {
     this._observers.push(observer);
   }
 
-  subscribeObservers(observers) {
-    this._observers.concat(observers);
-  }
-
   unsubscribe(observer) {
     this._observers = this._observers.filter(
       (subscriber) => subscriber !== observer

@@ -1,4 +1,4 @@
-import BaseComponent from '../../framework/BaseComponent';
+import BaseComponent from "../../framework/BaseComponent";
 
 export default class Article extends BaseComponent {
   constructor(props) {
