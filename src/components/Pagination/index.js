@@ -5,7 +5,7 @@ export default class Pagination extends BaseComponent {
     super(props);
     this._html = `<select ${
       eventTypes.onChange
-    }>${this.renderPageOptions()}</select>`;
+    } id="activePageSelect">${this.renderPageOptions()}</select>`;
   }
 
   renderPageOptions() {

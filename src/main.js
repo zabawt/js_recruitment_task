@@ -6,6 +6,7 @@ import ArticleClient from "./api/ArticleClient";
 import NewsListController from "./controller/NewsListController";
 import ReadLaterListController from "./controller/ReadLaterController";
 import PaginationController from "./controller/PaginationController";
+import SearchController from "./controller/SearchController";
 import MainApp from "./MainApp";
 
 const articleClient = new ArticleClient(
@@ -26,6 +27,7 @@ const initialState = {
 const paginationContainer = document.getElementById("activePageSelect");
 const newsListContainer = document.getElementsByClassName("newsList")[0];
 const readLaterContainer = document.getElementsByClassName("readLaterList")[0];
+const searchContainer = document.getElementById("newsContentSearch");
 
 const globalStore = new Store(initialState, "globalStore");
 const app = new MainApp(Renderer, globalStore);
@@ -38,7 +40,8 @@ app
     readLaterContainer,
     articleClient
   )
-  .registerController(PaginationController, paginationContainer, articleClient);
+  .registerController(PaginationController, paginationContainer, articleClient)
+  .registerController(SearchController, searchContainer, articleClient);
 
 articleClient.getArticles().then((data) => {
   const { results, pages, pageSize, currentPage } = data.response;

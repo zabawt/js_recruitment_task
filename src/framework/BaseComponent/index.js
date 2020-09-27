@@ -8,6 +8,7 @@ export default class BaseComponent {
     this._props = props;
     this._renderer = componentRenderer;
     this._html = "<div></div>";
+    this._eventTypes = eventTypes;
 
     const tmpComponent = this._html.toString();
 
@@ -15,7 +16,7 @@ export default class BaseComponent {
       throw new MissingArgument();
     }
 
-    if (typeof props !== "object") {
+    if (props && typeof props !== "object") {
       throw new InvalidArgument();
     }
   }
@@ -39,18 +40,11 @@ export default class BaseComponent {
     }
   }
 
-  handleOnClick(element) {
-    this.addHandler(eventTypes.onClick, element);
-  }
-
-  handleOnChange(element) {
-    this.addHandler(eventTypes.onChange, element);
-  }
-
   render() {
     const element = this._renderer(this._html);
-    this.handleOnChange(element);
-    this.handleOnClick(element);
+    for (let event in this._eventTypes) {
+      this.addHandler(event, element);
+    }
     return element;
   }
 }
