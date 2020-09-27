@@ -2,12 +2,20 @@ import MainController from "./../MainController";
 import Article from "./../../components/Article";
 
 export default class NewsListController extends MainController {
-  handleReadLater(event, id) {
-    event.preventDefault();
-    this._observer.setState({
-      ...this._observer.getState(),
-      readLater: [...this._observer.getState().readLater, id],
-    });
+  //uber cool function currying to handle events
+  handleReadLater(id) {
+    return (event) => {
+      //prevent puttin double entries to read later list with use of set!
+      const readLaterUnique = Array.from(
+        new Set([...this._globalStore.getState().readLater, id])
+      );
+
+      event.preventDefault();
+      this._globalStore.setState({
+        ...this._globalStore.getState(),
+        readLater: readLaterUnique,
+      });
+    };
   }
 
   renderNewsList(articles) {
@@ -19,7 +27,7 @@ export default class NewsListController extends MainController {
           link: webUrl,
           date: new Date(webPublicationDate).toLocaleDateString(),
           section: sectionName,
-          onClick: (event) => this.handleReadLater(event, id),
+          onClick: this.handleReadLater(id),
         }).render();
       }
     );
@@ -27,8 +35,7 @@ export default class NewsListController extends MainController {
     this._renderer(articleList);
   }
 
-  update(observer) {
-    this._observer = observer;
-    this.renderNewsList(observer.getState().articles);
+  update() {
+    this.renderNewsList(this._globalStore.getState().articles);
   }
 }

@@ -2,36 +2,38 @@ import MainController from "./../MainController";
 import ArticleReadLater from "./../../components/ArticleReadLater";
 
 export default class ReadLaterController extends MainController {
-  updateReadLater(event, id) {
-    event.preventDefault();
-    this._observer.setState({
-      ...this._observer.getState(),
-      readLater: [...this._observer.getState().readLater, id],
-    });
+  //class function currying , such a cool thing!
+  handleRemoveArticle(id) {
+    //I use arrow to have access to lexical 'this'
+    return (event) => {
+      event.preventDefault();
+      console.error(id);
+    };
   }
 
-  getTitleById(readLaterId) {
+  getArticleById(readLaterId) {
     if (!readLaterId) throw new Error("Missing ID argument");
-    return this._observer
+    return this._globalStore
       .getState()
       .articles.filter(({ id }) => id === readLaterId)
-      .pop().webTitle;
+      .pop();
   }
 
   renderReadLaterList(readLater) {
     const articleList = readLater.map((readLaterId) => {
+      const { id, webUrl, webTitle } = this.getArticleById(readLaterId);
       return new ArticleReadLater({
-        title: this.getTitleById(readLaterId),
+        title: webTitle,
+        webUrl,
+        onClick: this.handleRemoveArticle(id),
       }).render();
     });
 
     this._renderer(articleList);
   }
 
-  update(observer) {
-    this._observer = observer;
-    const { readLater } = observer.getState();
-
+  update() {
+    const { readLater } = this._globalStore.getState();
     this.renderReadLaterList(readLater);
   }
 }

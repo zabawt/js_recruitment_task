@@ -1,8 +1,9 @@
-import Subscriber from './../framework/Subscriber';
+import Subscriber from "./../framework/Subscriber";
 
 export default class MainController extends Subscriber {
-  constructor(renderer) {
+  constructor(renderer, globalStore) {
     super();
     this._renderer = renderer;
+    this._globalStore = globalStore;
   }
 }

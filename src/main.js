@@ -29,12 +29,17 @@ const readLaterRenderer = Renderer(
 // eslint-disable-next-line no-unused-vars
 const globalStore = new Store(initialState, "globalStore");
 
-const newsListController = new NewsListController(newsListRenderer);
-const readLaterController = new ReadLaterListController(readLaterRenderer);
+const newsListController = new NewsListController(
+  newsListRenderer,
+  globalStore
+);
+const readLaterController = new ReadLaterListController(
+  readLaterRenderer,
+  globalStore
+);
 
 globalStore.subscribe(newsListController);
 globalStore.subscribe(readLaterController);
-//globalStore.subscribeObservers([newsListController, readLaterController]);
 
 articleClient.getArticles().then((data) => {
   const { results, pages, pageSize, currentPage } = data.response;

@@ -14,6 +14,6 @@ export default class Publisher {
   }
 
   notify() {
-    this._observers.forEach((observer) => observer.update(this));
+    this._observers.forEach((observer) => observer.update());
   }
 }

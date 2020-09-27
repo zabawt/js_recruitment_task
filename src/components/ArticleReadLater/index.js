@@ -6,8 +6,8 @@ export default class ArticleReadLater extends BaseComponent {
     this._html = `<li>
                 <h4 class="readLaterItem-title">${this._props.title}</h4>
                 <section>
-                  <a href="https://theguardian.com" class="button button-clear">Read</a>
-                  <button class="button button-clear">Remove</button>
+                  <a href="${this._props.webUrl}" target="_blank" class="button button-clear">Read</a>
+                  <button class="button button-clear" onClick="">Remove</button>
                 </section>
               </li>`;
   }
