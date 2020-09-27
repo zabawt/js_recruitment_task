@@ -31,15 +31,16 @@ export default class ReadLaterController extends MainController {
   }
 
   renderReadLaterList(readLater) {
-    const articleList = readLater.map(({ id, webUrl, webTitle }) => {
-      return new ArticleReadLater({
-        title: webTitle,
-        webUrl,
-        onClick: this.handleRemoveArticle(id),
-      }).render();
-    });
-
-    this._renderer(articleList);
+    if (readLater) {
+      const articleList = readLater.map(({ id, webUrl, webTitle }) => {
+        return new ArticleReadLater({
+          title: webTitle,
+          webUrl,
+          onClick: this.handleRemoveArticle(id),
+        }).render();
+      });
+      this._renderer(articleList);
+    }
   }
 
   update() {

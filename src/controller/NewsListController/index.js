@@ -1,6 +1,6 @@
 import MainController from "./../MainController";
 import Article from "./../../components/Article";
-
+import NoResults from "./../../components/NoResults";
 export default class NewsListController extends MainController {
   //uber cool function currying to handle events
   handleReadLater(id) {
@@ -25,6 +25,7 @@ export default class NewsListController extends MainController {
   }
 
   isArticleDisabled(articleId) {
+    if (!articleId) return false;
     //we convert expresion to boolean with !! operator
     return !!this._globalStore
       .getState()
@@ -33,25 +34,29 @@ export default class NewsListController extends MainController {
 
   getArticleById(articleId) {
     const { articles } = this._globalStore.getState();
+    if (!articles) return [];
     return articles.filter(({ id }) => articleId === id).pop();
   }
 
   renderNewsList(articles) {
-    const articleList = articles.map(
-      ({ id, webPublicationDate, webTitle, webUrl, sectionName }) => {
-        return new Article({
-          id,
-          title: webTitle,
-          link: webUrl,
-          date: new Date(webPublicationDate).toLocaleDateString(),
-          section: sectionName,
-          onClick: this.handleReadLater(id),
-          disabled: this.isArticleDisabled(id),
-        }).render();
-      }
-    );
-
-    this._renderer(articleList);
+    if (articles) {
+      const articleList = articles.map(
+        ({ id, webPublicationDate, webTitle, webUrl, sectionName }) => {
+          return new Article({
+            id,
+            title: webTitle,
+            link: webUrl,
+            date: new Date(webPublicationDate).toLocaleDateString(),
+            section: sectionName,
+            onClick: this.handleReadLater(id),
+            disabled: this.isArticleDisabled(id),
+          }).render();
+        }
+      );
+      this._renderer(articleList);
+    } else {
+      this._renderer(new NoResults().render());
+    }
   }
 
   update() {
