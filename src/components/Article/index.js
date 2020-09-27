@@ -9,13 +9,24 @@ export default class Article extends BaseComponent {
                   </header>
                   <section class="newsDetails">
                     <ul>
-                      <li><strong>Section Name:</strong> ${this._props.section}</li>
-                      <li><strong>Publication Date:</strong> ${this._props.date}</li>
+                      <li><strong>Section Name:</strong> ${
+  this._props.section
+}</li>
+                      <li><strong>Publication Date:</strong> ${
+  this._props.date
+}</li>
                     </ul>
                   </section>
                   <section class="newsActions">
-                    <a href="${this._props.link}" class="button" target="_blank">Full article</a>
-                    <button class="button button-outline" onClick>Read Later</button>
+                    <a href="${
+  this._props.link
+}" class="button" target="_blank">Full article</a>
+                    <button 
+                      class="button button-outline" 
+                      onClick
+                      ${this._props.disabled && "disabled"}
+                      >
+                      Read Later</button>
                   </section>
                 </article></li>`;
   }

@@ -7,6 +7,7 @@ import NewsListController from "./controller/NewsListController";
 import ReadLaterListController from "./controller/ReadLaterController";
 import PaginationController from "./controller/PaginationController";
 import MainApp from "./MainApp";
+
 const articleClient = new ArticleClient(
   apiConfig["api-key"],
   apiConfig["api-url"]
@@ -22,7 +23,7 @@ const initialState = {
   pages: 1,
 };
 
-const paginationRenderer = document.getElementById("activePageSelect");
+const paginationContainer = document.getElementById("activePageSelect");
 const newsListContainer = document.getElementsByClassName("newsList")[0];
 const readLaterContainer = document.getElementsByClassName("readLaterList")[0];
 
@@ -33,7 +34,7 @@ const app = new MainApp(Renderer, globalStore);
 app
   .registerController(NewsListController, newsListContainer)
   .registerController(ReadLaterListController, readLaterContainer)
-  .registerController(PaginationController, paginationRenderer);
+  .registerController(PaginationController, paginationContainer);
 
 articleClient.getArticles().then((data) => {
   const { results, pages, pageSize, currentPage } = data.response;
