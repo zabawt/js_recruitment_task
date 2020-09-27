@@ -1,4 +1,5 @@
 const sectionNames = {
+  ALL: "",
   SPORT: "sport",
   BOOKS: "books",
   BUSINESS: "business",
